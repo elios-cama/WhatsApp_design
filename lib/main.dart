@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'chat_page.dart';
 
-const d_green = Color(0xFF2ac0a6);
-const d_white = Colors.white;
-const d_black = Colors.black;
+const dGreen = Color(0xFF2ac0a6);
+const dWhite = Color(0xFFe8f4f2);
+const dBlack = Color(0xFF34322f);
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'WhatsApp',
+      title: 'WhatsApp Redesign',
       home: HomePage(),
     );
   }
@@ -31,21 +30,22 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: d_black,
+        elevation: 0,
+        backgroundColor: dBlack,
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.menu,
-            color: d_white,
+            color: dWhite,
             size: 30,
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.search_rounded,
-              color: d_white,
+              color: dWhite,
               size: 30,
             ),
           ),
@@ -55,12 +55,14 @@ class HomePage extends StatelessWidget {
         children: [
           MenuSection(),
           FavoriteSection(),
-          Expanded(child: MessageSection())
+          Expanded(
+            child: MessageSection(),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: d_green,
         onPressed: () {},
+        backgroundColor: dGreen,
         child: const Icon(
           Icons.edit,
           size: 20,
@@ -71,25 +73,28 @@ class HomePage extends StatelessWidget {
 }
 
 class MenuSection extends StatelessWidget {
-  final List menuItems = ["Messages", "Online", "Groups", "Calls"];
+  final List menuItems = ["Message", "Online", "Groups", "Calls"];
+
   MenuSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: d_black,
-      height: 80,
+      color: dBlack,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 25),
           child: Row(
             children: menuItems.map((item) {
               return Container(
-                margin: EdgeInsets.only(right: 55),
+                margin: const EdgeInsets.only(right: 55),
                 child: Text(
                   item,
-                  style: GoogleFonts.inter(color: Colors.white60, fontSize: 29),
+                  style: GoogleFonts.inter(
+                    color: Colors.white60,
+                    fontSize: 29,
+                  ),
                 ),
               );
             }).toList(),
@@ -101,8 +106,13 @@ class MenuSection extends StatelessWidget {
 }
 
 class FavoriteSection extends StatelessWidget {
-  final List favoriteContact = [
-    {'name': "Alla", 'profile': "images/avatar/a1.jpg"},
+  FavoriteSection({Key? key}) : super(key: key);
+
+  final List favoriteContacts = [
+    {
+      'name': 'Alla',
+      'profile': 'images/avatar/a1.jpg',
+    },
     {
       'name': 'July',
       'profile': 'images/avatar/a2.jpg',
@@ -128,16 +138,15 @@ class FavoriteSection extends StatelessWidget {
       'profile': 'images/avatar/a7.jpg',
     },
   ];
-  FavoriteSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: d_black,
+      color: dBlack,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
-          color: d_green,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: const BoxDecoration(
+          color: dGreen,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(40),
             topLeft: Radius.circular(40),
@@ -149,59 +158,62 @@ class FavoriteSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 15),
+                  margin: const EdgeInsets.only(left: 15),
                   child: Text(
-                    'Favorite contacts',
+                    "Favorite contacts",
                     style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
+                const IconButton(
                   icon: Icon(
                     Icons.more_horiz,
                     color: Colors.white,
                     size: 20,
                   ),
-                )
+                  onPressed: null,
+                ),
               ],
             ),
             SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: favoriteContact.map((e) {
-                    return Container(
-                      margin: EdgeInsets.only(left: 15),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                color: Colors.white, shape: BoxShape.circle),
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundImage: AssetImage(e['profile']),
-                            ),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: favoriteContacts.map((favorite) {
+                  return Container(
+                    margin: const EdgeInsets.only(left: 15),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          height: 70,
+                          width: 70,
+                          decoration: const BoxDecoration(
+                            color: dWhite,
+                            shape: BoxShape.circle,
                           ),
-                          SizedBox(
-                            height: 6,
+                          child: CircleAvatar(
+                            radius: 20,
+                            backgroundImage: AssetImage(favorite['profile']),
                           ),
-                          Text(
-                            e['name'],
-                            style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          favorite['name'],
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ))
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            )
           ],
         ),
       ),
@@ -211,11 +223,12 @@ class FavoriteSection extends StatelessWidget {
 
 class MessageSection extends StatelessWidget {
   MessageSection({Key? key}) : super(key: key);
+
   final List messages = [
     {
       'senderProfile': 'images/avatar/a2.jpg',
       'senderName': 'Lara',
-      'message': 'Hello! how are youuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',
+      'message': 'Hello! how are you',
       'unRead': 0,
       'date': '16:35',
     },
@@ -229,7 +242,7 @@ class MessageSection extends StatelessWidget {
     {
       'senderProfile': 'images/avatar/a4.jpg',
       'senderName': 'Mary',
-      'message': 'Hey bro',
+      'message': 'How are you bro',
       'unRead': 6,
       'date': '15:16',
     },
@@ -273,65 +286,99 @@ class MessageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-
       child: Column(
         children: messages.map((message) {
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatPage(),
+                ),
+              );
+            },
+            splashColor: dGreen,
             child: Container(
-              padding: EdgeInsets.only(left: 30, right: 10, top: 15),
+              padding: const EdgeInsets.only(left: 30, right: 10, top: 15),
               child: Row(
                 children: [
                   Container(
+                    margin: const EdgeInsets.only(right: 23),
                     width: 62,
                     height: 62,
-                    margin: EdgeInsets.only(right: 23),
                     decoration: BoxDecoration(
-                        color: d_green,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(
-                              message['senderProfile'],
-                            ),
-                            fit: BoxFit.cover)),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(message['senderProfile']),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   Expanded(
-                      child: Column(
-                    children: [
-                      Expanded(
-                        child: Row(
+                    child: Column(
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  message['senderName'],
-                                  style: GoogleFonts.inter(
+                            Container(
+                              margin: const EdgeInsets.only(top: 25),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    message['senderName'],
+                                    style: GoogleFonts.inter(
                                       color: Colors.grey,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  message['message'],
-                                  style: GoogleFonts.inter(
-                                      color: Colors.black87,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                  overflow: TextOverflow.fade,
-                                ),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Wrap(children: [
+                                    Text(
+                                      message['message'],
+                                      style: GoogleFonts.inter(
+                                        color: Colors.black87,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ]),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(message['date']),
+                                message['unRead'] != 0
+                                    ? Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: const BoxDecoration(
+                                          color: dGreen,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Text(
+                                          message['unRead'].toString(),
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
                               ],
                             ),
-                            Column(children: [
-                              Text(message['date'].toString()),
-                              message['unRead']
-                            ],)
-                        
                           ],
                         ),
-                      ),
-                    ],
-                  ))
+                        const SizedBox(height: 20),
+                        Container(
+                          color: Colors.grey[400],
+                          height: 0.5,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
